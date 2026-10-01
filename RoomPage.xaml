@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Dimitrova_3_bldg_3.RoomPage"
+             Title="Комнаты">
+    <ScrollView>
+        <VerticalStackLayout Margin="10" Spacing="10">
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Image HeightRequest="80" Margin="20" Source="room.png"/>
+                <Label Style="{StaticResource HeadLine}"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"
+                       FontSize="30">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Список" />
+                            <Span Text="&#10;" />
+                            <Span Text="комнат"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </HorizontalStackLayout>
+
+            <Button Text="Открыть статистику" 
+                    Clicked="OnShowStatsClicked" 
+                    Margin="10"
+                    BackgroundColor="#004889"
+                    TextColor="#CCCCCC"
+                    CornerRadius="10"/>
+
+            <VerticalStackLayout Spacing="15" HorizontalOptions="Fill">
+
+                <Border StrokeShape="RoundRectangle 10" 
+                        StrokeThickness="1" 
+                        Stroke="#CCCCCC"
+                        Padding="10"
+                        HorizontalOptions="Fill">
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="8">
+                        <VerticalStackLayout Spacing="5" Grid.Column="0">
+                            <Label Text="Поиск" FontAttributes="Bold" FontSize="14"/>
+                            <Entry Placeholder="№ комнаты" 
+                                   Text="{Binding SearchQuery}" 
+                                   Keyboard="Telephone"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="5" Grid.Column="1" WidthRequest="120">
+                            <Button Text="Найти" 
+                                        Command="{Binding SearchCommand}"
+                                        HorizontalOptions="Fill"/>
+                            <Button Text="Сбросить" 
+                                        Command="{Binding ResetCommand}"
+                                        HorizontalOptions="Fill"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+                
+                <Border StrokeShape="RoundRectangle 10" 
+                        StrokeThickness="1" 
+                        Stroke="#CCCCCC"
+                        Padding="10"
+                        HorizontalOptions="Fill">
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="8">
+                        <VerticalStackLayout Spacing="5" Grid.Column="0">
+                            <Label Text="Фильтры" FontAttributes="Bold" FontSize="14"/>
+                            <Grid ColumnDefinitions="*, *" ColumnSpacing="5">
+                                <Entry Placeholder="Секция" 
+                                       Text="{Binding SectionFilter}" 
+                                       Keyboard="Telephone"
+                                       Grid.Column="0"/>
+                                <Picker Title="Пол" 
+                                        SelectedItem="{Binding GenderFilter}"
+                                        Grid.Column="1">
+                                    <Picker.Items>
+                                        <x:String>Все</x:String>
+                                        <x:String>Мужская</x:String>
+                                        <x:String>Женская</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </Grid>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="5" Grid.Column="1" WidthRequest="120">
+                            <Button Text="Применить" 
+                                    Command="{Binding FilterCommand}"
+                                    HorizontalOptions="Fill"/>
+                            <Button Text="Сбросить" 
+                                    Command="{Binding ResetCommand}"
+                                    HorizontalOptions="Fill"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 10" 
+                        StrokeThickness="1" 
+                        Stroke="#CCCCCC"
+                        Padding="10"
+                        HorizontalOptions="Fill">
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="8">
+                        <VerticalStackLayout Spacing="5" Grid.Column="0">
+                                <Label Text="Сортировка" FontAttributes="Bold" FontSize="14"/>
+                                <Picker SelectedItem="{Binding RoomSortOption}">
+                                    <Picker.Items>
+                                        <x:String>По номеру комнаты</x:String>
+                                        <x:String>По этажу</x:String>
+                                        <x:String>По занятым местам</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </VerticalStackLayout>
+                        <Button Grid.Column="1"
+                                Text="Сортировать" 
+                                Command="{Binding SortRoomsCommand}"
+                                WidthRequest="120"
+                                HorizontalOptions="Fill"/>
+                    </Grid>
+                </Border>
+                
+            </VerticalStackLayout>
+
+            
+            <Border>
+                <CollectionView SelectionMode="Single"
+                                SelectionChangedCommand="{Binding SelectedItemCommand}"
+                                SelectionChangedCommandParameter="{Binding Source={RelativeSource Mode=Self}, Path=SelectedItem}"
+                                SelectionChanged="cvRooms_SelectionChanged"
+                            x:Name="RoomsView" ItemsSource="{Binding Rooms}"/>
+            </Border>
+            <HorizontalStackLayout>
+                <Image Source="list.png" HeightRequest="40"/>
+                <Label VerticalOptions="Center" Text="Коррекция списка комнат"
+                   FontAttributes="Bold" FontSize="Medium"/>
+            </HorizontalStackLayout>
+
+            <Button Text="Очисить форму" Padding="2" Command="{Binding ClearCommand}" HeightRequest="45" CornerRadius="15"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Номер комнаты"/>
+            <Entry x:Name="entNumber" Margin="5" Text="{Binding Number}" Keyboard="Telephone"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Номер секции"/>
+            <Entry x:Name="entSection" Margin="5" Text="{Binding Section}" Keyboard="Telephone"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Тип комнаты"/>
+            <HorizontalStackLayout Spacing="20" Margin="5">
+                <RadioButton x:Name="radioMale" Content="Мужская" GroupName="RoomGender"
+                             CheckedChanged="OnGenderChecked" Value="Мужская"/>
+                <RadioButton x:Name="radioFemale" Content="Женская" GroupName="RoomGender"
+                             CheckedChanged="OnGenderChecked" Value="Женская"/>
+            </HorizontalStackLayout>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Этаж"/>
+            <Entry x:Name="entFloor" Margin="5" Text="{Binding Floor}" Keyboard="Telephone"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Площадь"/>
+            <Entry x:Name="entArea" Margin="5" Text="{Binding Area}" Keyboard="Telephone"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Количество койко-мест"/>
+            <Entry x:Name="entTotalBeds" Margin="5" Text="{Binding TotalBeds}" Keyboard="Telephone"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Количество занятых койко-мест"/>
+            <Label x:Name="lblOccupiedBeds" Margin="5" Background="#F0F0F0" Padding="10" Text="{Binding OccupiedBeds}" FontSize="16"/>
+
+            <HorizontalStackLayout Spacing="30" HorizontalOptions="Center">
+                <ImageButton Padding="2" Source="add.png" Command="{Binding AddCommand}"
+                             WidthRequest="30" HeightRequest="30" CornerRadius="15"/>
+                <ImageButton Padding="2" Source="refresh.png" Command="{Binding UpdateCommand}"
+                             CommandParameter="{Binding Source={x:Reference RoomsView}, Path=SelectedItem}"
+                             WidthRequest="30" HeightRequest="30" CornerRadius="15"/>
+                <ImageButton Padding="2" Source="remove.png" Command="{Binding RemoveCommand}"
+                             CommandParameter="{Binding Source={x:Reference RoomsView}, Path=SelectedItem}"
+                             WidthRequest="30" HeightRequest="30" CornerRadius="15"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

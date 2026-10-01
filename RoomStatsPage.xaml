@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             xmlns:lvcCore="clr-namespace:LiveChartsCore;assembly=LiveChartsCore"
+             x:Class="Dimitrova_3_bldg_3.RoomStatsPage"
+             Title="Статистика комнат"
+             BackgroundColor="#90001d37">
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="20">
+
+            <Label Text="Аналитика общежития" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#F8F9FA"/>
+
+            <!-- 1. Занятые / свободные комнаты -->
+            <Border StrokeShape="RoundRectangle 10" Padding="10" BackgroundColor="#F8F9FA">
+                <VerticalStackLayout>
+                    <Label Text="Заселенность комнат" FontAttributes="Bold" HorizontalOptions="Center" FontSize="18"/>
+                    <Label Text="Комната считается заселеной, если в ней нет свободных мест"
+                           FontSize="12" TextColor="Gray" HorizontalOptions="Center" Margin="0,0,0,10"/>
+                    <lvc:PieChart Series="{Binding OccupiedRoomsSeries}" HeightRequest="200" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 2. Занятые / свободные койко-места -->
+            <Border StrokeShape="RoundRectangle 10" Padding="10" BackgroundColor="#F8F9FA">
+                <VerticalStackLayout>
+                    <Label Text="Загрузка койко-мест" FontAttributes="Bold" HorizontalOptions="Center" FontSize="18"/>
+                    <lvc:PieChart Series="{Binding OccupiedBedsSeries}" HeightRequest="200" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 3. Мужские / женские комнаты -->
+            <Border StrokeShape="RoundRectangle 10" Padding="10" BackgroundColor="#F8F9FA">
+                <VerticalStackLayout>
+                    <Label Text="Распределение комнат по полу" FontAttributes="Bold" HorizontalOptions="Center" FontSize="18"/>
+                    <lvc:PieChart Series="{Binding GenderDistributionSeries}" HeightRequest="200" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 4. Загруженность секций -->
+            <Border StrokeShape="RoundRectangle 10" Padding="10" BackgroundColor="#F8F9FA">
+                <VerticalStackLayout>
+                    <Label Text="Статистика по секциям" FontAttributes="Bold" HorizontalOptions="Center" FontSize="18"/>
+                    <Label Text="Сравнение количества комнат и жильцов в каждой секции" 
+                           FontSize="12" TextColor="Gray" HorizontalOptions="Center" Margin="0,0,0,10"/>
+                    <lvc:CartesianChart Series="{Binding SectionOccupancySeries}" 
+                            HeightRequest="250" 
+                            XAxes="{Binding SectionXAxes}">
+                    </lvc:CartesianChart>
+
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

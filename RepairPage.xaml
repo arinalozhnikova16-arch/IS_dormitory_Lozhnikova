@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Dimitrova_3_bldg_3.RepairPage"
+             Title="Заявки на ремонт">
+    
+    <ScrollView>
+        <VerticalStackLayout Margin="10" Spacing="10">
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Image HeightRequest="60" Margin="20" Source="reapir.png"/>
+                <Label Style="{StaticResource HeadLine}"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"
+                       FontSize="30">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Список заявок" />
+                            <Span Text="&#10;" />
+                            <Span Text="на ремонт"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </HorizontalStackLayout>
+
+            <Button Text="Открыть статистику" 
+                    Clicked="OnShowStatsClicked" 
+                    Margin="10"
+                    BackgroundColor="#004889"
+                    TextColor="#CCCCCC"
+                    CornerRadius="10"/>
+
+            <VerticalStackLayout Spacing="15" HorizontalOptions="Fill">
+
+                <Border StrokeShape="RoundRectangle 10" 
+                        StrokeThickness="1" 
+                        Stroke="#CCCCCC"
+                        Padding="10">
+
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="8">
+                        <VerticalStackLayout Spacing="5" Grid.Column="0">
+                            <Label Text="Поиск" FontAttributes="Bold" FontSize="14"/>
+                            <Entry Placeholder="№ комнаты"
+                                   Text="{Binding SearchQuery}"
+                                   Keyboard="Telephone"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="5" Grid.Column="1" WidthRequest="120">
+                            <Button Text="Найти" 
+                                    Command="{Binding SearchCommand}"
+                                    HorizontalOptions="Fill"/>
+                            <Button Text="Сбросить" 
+                                    Command="{Binding ResetCommand}"
+                                    HorizontalOptions="Fill"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 10" 
+                        StrokeThickness="1" 
+                        Stroke="#CCCCCC"
+                        Padding="10">
+                    <Grid RowDefinitions="*, Auto" RowSpacing="8">
+                        <VerticalStackLayout Spacing="5" Grid.Row="0">
+                            <Label Text="Фильтры" FontAttributes="Bold" FontSize="14"/>
+                            <Grid ColumnDefinitions="*, Auto" ColumnSpacing="5">
+                                <Picker Title="Статус"
+                                        SelectedItem="{Binding StatusFilter}"
+                                        Grid.Column="0">
+                                        <Picker.Items>
+                                            <x:String>Все</x:String>
+                                            <x:String>На рассмотрении</x:String>
+                                            <x:String>Принята</x:String>
+                                            <x:String>Выполнена</x:String>
+                                            <x:String>Отклонена</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                <Grid Grid.Column="2" ColumnDefinitions="*, *" ColumnSpacing="5"
+                                      RowDefinitions="*, *" RowSpacing="5">
+                                    <Label Text="Временной интервал" FontSize="14" Grid.Row="0" Grid.ColumnSpan="2"/>
+                                    <DatePicker Date="{Binding DateFrom}"
+                                                Format="dd.MM.yyyy"
+                                                Grid.Column="0"
+                                                Grid.Row="1"/>
+                                    <DatePicker Date="{Binding DateTo}"
+                                                Format="dd.MM.yyyy"
+                                                Grid.Column="1"
+                                                Grid.Row="2"/>
+                                </Grid>
+                            </Grid>
+                        </VerticalStackLayout>
+                        <Grid ColumnDefinitions="*, *" ColumnSpacing="5" HeightRequest="45" Grid.Row="1">
+                            <Button Text="Применить" Command="{Binding FilterCommand}" Grid.Column="0"/>
+                            <Button Text="Сбросить" Command="{Binding ResetCommand}" Grid.Column="1"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 10" 
+                        StrokeThickness="1" 
+                        Stroke="#CCCCCC"
+                        Padding="10">
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="8">
+                        <VerticalStackLayout Spacing="5" Grid.Column="0">
+                            <Label Text="Сортировка" FontAttributes="Bold" FontSize="14"/>
+                            <Picker SelectedItem="{Binding RepairSortOption}">
+                                <Picker.Items>
+                                    <x:String>По дате (убыв.)</x:String>
+                                    <x:String>По дате (возр.)</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </VerticalStackLayout>
+                        <Button Grid.Column="1"
+                                Text="Сортировать" 
+                                Command="{Binding SortRepairsCommand}"
+                                WidthRequest="120"
+                                HorizontalOptions="Fill"/>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+
+
+            <Button Text="{Binding FilterButtonText}" 
+                    Command="{Binding ToggleFilterCommand}" 
+                    Margin="10,5" 
+                    HorizontalOptions="Fill"
+                    BackgroundColor="#E3F2FD"
+                    TextColor="#001d37"/>
+
+            <Border>
+                <CollectionView SelectionMode="Single"
+                    SelectionChangedCommand="{Binding SelectedItemCommand}"
+                    SelectionChangedCommandParameter="{Binding Source={RelativeSource Mode=Self}, Path=SelectedItem}"
+                x:Name="RepairsView" ItemsSource="{Binding Repairs}"/>
+            </Border>
+            <HorizontalStackLayout>
+                <Image Source="list.png" HeightRequest="40"/>
+                <Label VerticalOptions="Center" Text="Коррекция списка заявок на ремонт"
+               FontAttributes="Bold" FontSize="Medium"/>
+            </HorizontalStackLayout>
+
+            <Button Text="Очисить форму" Padding="2" Command="{Binding ClearCommand}" HeightRequest="45" CornerRadius="15"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Описание неисправности"/>
+            <Entry x:Name="entDescription" Margin="5" Text="{Binding Description}" Placeholder="Введите подробное описание неисправности"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Номер комнаты"/>
+            <Picker x:Name="pickerRoom" Margin="5" Title="Выберите комнату"
+                    ItemsSource="{Binding RoomList}" SelectedItem="{Binding RoomId}"
+                    ItemDisplayBinding="{Binding PickerDisplay}" />
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Подавший заявку"/>
+            <Picker x:Name="pickerResident" Margin="5" Title="Выберите подавшего заявку"
+                    ItemsSource="{Binding FilteredResidentList}" SelectedItem="{Binding ResidentId}"
+                    ItemDisplayBinding="{Binding PickerDisplay}" />
+            
+            
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Дата подачи"/>
+            <DatePicker x:Name="dateRequestDate" Margin="5" Date="{Binding RequestDate}" Format="dd.MM.yyyy"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Статус заявки"/>
+            <Picker x:Name="pickerStatus" Margin="5" Title="Выберите статус" SelectedItem="{Binding Status}">
+                <Picker.Items>
+                    <x:String>На рассмотрении</x:String>
+                    <x:String>Принята</x:String>
+                    <x:String>Выполнена</x:String>
+                    <x:String>Отклонена</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <HorizontalStackLayout Spacing="30" HorizontalOptions="Center">
+                <ImageButton Padding="2" Source="add.png" Command="{Binding AddCommand}"
+                 WidthRequest="30" HeightRequest="30" CornerRadius="15"/>
+                <ImageButton Padding="2" Source="refresh.png" Command="{Binding UpdateCommand}"
+                 CommandParameter="{Binding Source={x:Reference RepairsView}, Path=SelectedItem}"
+                 WidthRequest="30" HeightRequest="30" CornerRadius="15"/>
+                <ImageButton Padding="2" Source="remove.png" Command="{Binding RemoveCommand}"
+                 CommandParameter="{Binding Source={x:Reference RepairsView}, Path=SelectedItem}"
+                 WidthRequest="30" HeightRequest="30" CornerRadius="15"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

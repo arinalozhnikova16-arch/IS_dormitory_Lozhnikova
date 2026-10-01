@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             x:Class="Dimitrova_3_bldg_3.RepairStatsPage"
+             Title="Статистика заявок на ремонт"
+             BackgroundColor="#90001d37">
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="20">
+
+            <Label Text="Аналитика заявок на ремонт" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"  TextColor="#F8F9FA"/>
+
+            <!-- 1. Соотношение статусов -->
+            <Border StrokeShape="RoundRectangle 10" Padding="10" BackgroundColor="#F8F9FA">
+                <VerticalStackLayout>
+                    <Label Text="Распределение заявок по статусам" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <lvc:PieChart Series="{Binding StatusDistributionSeries}" HeightRequest="250"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 2. Заявки по комнатам -->
+            <Border StrokeShape="RoundRectangle 10" Padding="10" BackgroundColor="#F8F9FA">
+                <VerticalStackLayout>
+                    <Label Text="Количество заявок по комнатам" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <lvc:CartesianChart Series="{Binding RoomRequestCountSeries}" 
+                            HeightRequest="250" 
+                            XAxes="{Binding RoomRequestXAxes}">
+                    </lvc:CartesianChart>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 3. Динамика по датам -->
+            <Border StrokeShape="RoundRectangle 10" Padding="10" BackgroundColor="#F8F9FA">
+                <VerticalStackLayout>
+                    <Label Text="Динамика заявок по датам" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <lvc:CartesianChart Series="{Binding DateTrendSeries}" 
+                            HeightRequest="300"
+                            XAxes="{Binding DateXAxes}"/>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Dimitrova_3_bldg_3.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Dimitrova_3_bldg_3"
+    Title="Dimitrova_3_bldg_3"
+    BackgroundColor="#d7d7d7">
+
+    <ShellContent
+        Title="Главная страница"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Icon="home.png"
+        Route="MainPage" />
+    <ShellContent
+        Title="Комнаты"
+        ContentTemplate="{DataTemplate local:RoomPage}"
+        Icon="room.png"
+        Route="RoomPage" />
+    <ShellContent
+        Title="Проживающие"
+        ContentTemplate="{DataTemplate local:ResidentPage}"
+        Icon="resident.png"
+        Route="ResidentPage" />
+    <ShellContent
+        Title="Заявки на ремонт"
+        ContentTemplate="{DataTemplate local:RepairPage}"
+        Icon="reapir.png"
+        Route="RepairPage" />
+</Shell>

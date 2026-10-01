@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             x:Class="Dimitrova_3_bldg_3.ResidentStatsPage"
+             Title="Статистика проживающих"
+             BackgroundColor="#90001d37">
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="20">
+
+            <Label Text="Аналитика проживающих" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"  TextColor="#F8F9FA"/>
+
+            <!-- 1. Распределение по факультетам -->
+            <Border StrokeShape="RoundRectangle 10" Padding="10" BackgroundColor="#F8F9FA">
+                <VerticalStackLayout>
+                    <Label Text="Распределение проживающих по факультетам" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <lvc:CartesianChart Series="{Binding FacultyDistributionSeries}" 
+                            HeightRequest="300" 
+                            XAxes="{Binding FacultyXAxes}"/>
+                </VerticalStackLayout>   
+            </Border>
+
+            <!-- 2. Распределение по курсам -->
+            <Border StrokeShape="RoundRectangle 10" Padding="10" BackgroundColor="#F8F9FA">
+                <VerticalStackLayout>
+                    <Label Text="Распределение проживающих по курсам" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <lvc:CartesianChart Series="{Binding CourseDistributionSeries}" 
+                            HeightRequest="250" 
+                            XAxes="{Binding CourseXAxes}">
+                    </lvc:CartesianChart>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

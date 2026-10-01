@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Dimitrova_3_bldg_3.ResidentPage"
+             Title="Проживающие">
+    <ScrollView>
+        <VerticalStackLayout Margin="10" Spacing="10">
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Image HeightRequest="60" Margin="20" Source="resident.png"/>
+                <Label Style="{StaticResource HeadLine}"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"
+                       FontSize="30">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Список" />
+                            <Span Text="&#10;" />
+                            <Span Text="проживающих"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </HorizontalStackLayout>
+
+            <Button Text="Открыть статистику" 
+                    Clicked="OnShowStatsClicked" 
+                    Margin="10"
+                    BackgroundColor="#004889"
+                    TextColor="#CCCCCC"
+                    CornerRadius="10"/>
+
+            <VerticalStackLayout Spacing="15" HorizontalOptions="Fill">
+
+                <Border StrokeShape="RoundRectangle 10" 
+                        StrokeThickness="1" 
+                        Stroke="#CCCCCC"
+                        Padding="10">
+
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="8">
+                        <VerticalStackLayout Spacing="5" Grid.Column="0">
+                            <Label Text="Поиск" FontAttributes="Bold" FontSize="14"/>
+                            <Entry Placeholder="Фамилия"
+                                   Text="{Binding SearchQuery}"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="5" Grid.Column="1" WidthRequest="120">
+                            <Button Text="Найти" 
+                                    Command="{Binding SearchCommand}"
+                                    HorizontalOptions="Fill"/>
+                            <Button Text="Сбросить" 
+                                    Command="{Binding ResetCommand}"
+                                    HorizontalOptions="Fill"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 10" 
+                        StrokeThickness="1" 
+                        Stroke="#CCCCCC"
+                        Padding="10">
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="8">
+                        <VerticalStackLayout Spacing="5" Grid.Column="0">
+                            <Label Text="Фильтры" FontAttributes="Bold" FontSize="14"/>
+                            <Grid ColumnDefinitions="*, *, *" ColumnSpacing="5">
+                                <Picker Title="Факультет"
+                                        SelectedItem="{Binding FacultyFilter}"
+                                        Grid.Column="0">
+                                    <Picker.Items>
+                                        <x:String>Все</x:String>
+                                        <x:String>ФГМУ - Факультет государственного и муниципального управления</x:String>
+                                        <x:String>ФЭФ - Факультет экономики и финансов</x:String>
+                                        <x:String>ФБТ - Факультет безопасности и таможни</x:String>
+                                        <x:String>ЮФ - Юридический факультет</x:String>
+                                        <x:String>ФМОПИ - Факультет международных отношений и политических исследований</x:String>
+                                        <x:String>ФСТ - Факультет социальных технологий</x:String>
+                                        <x:String>ФСПО - Факультет среднего профессионального образования</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                                <Picker Title="Курс"
+                                        SelectedItem="{Binding CourseFilter}"
+                                        Grid.Column="1">
+                                    <Picker.Items>
+                                        <x:String>Все</x:String>
+                                        <x:String>1</x:String>
+                                        <x:String>2</x:String>
+                                        <x:String>3</x:String>
+                                        <x:String>4</x:String>
+                                        <x:String>5</x:String>
+                                        <x:String>6</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                                <Entry Placeholder="Комната"
+                                       Text="{Binding RoomFilter}"
+                                       Keyboard="Telephone"
+                                       Grid.Column="2"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="5" Grid.Column="1" WidthRequest="120">
+                            <Button Text="Применить" 
+                                    Command="{Binding FilterCommand}"
+                                    HorizontalOptions="Fill"/>
+                            <Button Text="Сбросить" 
+                                    Command="{Binding ResetCommand}"
+                                    HorizontalOptions="Fill"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 10" 
+                        StrokeThickness="1" 
+                        Stroke="#CCCCCC"
+                        Padding="10">
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="8">
+                        <VerticalStackLayout Spacing="5" Grid.Column="0">
+                            <Label Text="Сортировка" FontSize="14" FontAttributes="Bold"/>
+                            <Picker FontSize="14"
+                                    SelectedItem="{Binding ResidentSortOption}">
+                                <Picker.Items>
+                                    <x:String>По фамилии</x:String>
+                                    <x:String>По имени</x:String>
+                                    <x:String>По отчеству</x:String>
+                                    <x:String>По комнате</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </VerticalStackLayout>
+                        <Button Grid.Column="1"
+                                Text="Сортировать" 
+                                Command="{Binding SortResidentsCommand}"
+                                HorizontalOptions="Fill"
+                                WidthRequest="120"/>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+
+            
+            <Border>
+                <CollectionView SelectionMode="Single"
+                    SelectionChangedCommand="{Binding SelectedItemCommand}"
+                    SelectionChangedCommandParameter="{Binding Source={RelativeSource Mode=Self}, Path=SelectedItem}"
+                x:Name="ResidentsView" ItemsSource="{Binding Residents}"/>
+            </Border>
+            <HorizontalStackLayout>
+                <Image Source="list.png" HeightRequest="40"/>
+                <Label VerticalOptions="Center" Text="Коррекция списка проживающих"
+                       FontAttributes="Bold" FontSize="Medium"/>
+            </HorizontalStackLayout>
+
+            <Button Text="Очисить форму" Padding="2" Command="{Binding ClearCommand}" HeightRequest="45" CornerRadius="15"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Фамилия"/>
+            <Entry x:Name="entFistName" Margin="5" Text="{Binding FirstName}" Placeholder="Введите фамилию"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Имя"/>
+            <Entry x:Name="entLastName" Margin="5" Text="{Binding LastName}" Placeholder="Введите имя"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Отчество"/>
+            <Entry x:Name="entMiddleName" Margin="5" Text="{Binding MiddleName}" Placeholder="Введите отчество при наличии"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Номер комнаты"/>
+            <HorizontalStackLayout Margin="5" Spacing="10" VerticalOptions="Center">
+                <Button Text="Выбрать комнату" Clicked="OnSelectRoomClicked" HorizontalOptions="Start"/>
+                <Label x:Name="lblSelectedRoom" Text="{Binding RoomDisplay}" VerticalOptions="Center" FontSize="16" TextColor="Gray"/>
+            </HorizontalStackLayout>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Факультет"/>
+            <Picker x:Name="pickerFaculty" Margin="5" Title="Выберите факультет" SelectedItem="{Binding Faculty}">
+                <Picker.Items>
+                    <x:String>ФГМУ - Факультет государственного и муниципального управления</x:String>
+                    <x:String>ФЭФ - Факультет экономики и финансов</x:String>
+                    <x:String>ФБТ - Факультет безопасности и таможни</x:String>
+                    <x:String>ЮФ - Юридический факультет</x:String>
+                    <x:String>ФМОПИ - Факультет международных отношений и политических исследований</x:String>
+                    <x:String>ФСТ - Факультет социальных технологий</x:String>
+                    <x:String>ФСПО - Факультет среднего профессионального образования</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Курс"/>
+            <Entry x:Name="entCourse" Margin="5" Text="{Binding Course}" Keyboard="Telephone"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Дата рождения"/>
+            <DatePicker x:Name="dateDateOfBirth" Margin="5" Date="{Binding DateOfBirth}" Format="dd.MM.yyyy"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Номер телефона"/>
+            <Entry x:Name="entPhone" Margin="5" Text="{Binding Phone}" Keyboard="Telephone" Placeholder="Введите номер телефона без пробелов, скобок и прочих символов"/>
+
+            <Label Margin="5" HorizontalOptions="Start" FontSize="18" Text="Адрес электронной почты"/>
+            <Entry x:Name="entEmail" Margin="5" Text="{Binding Email}" Placeholder="Введите адрес почты с указанием @ и домена"/>
+
+            <HorizontalStackLayout Spacing="30" HorizontalOptions="Center">
+                <ImageButton Padding="2" Source="add.png" Command="{Binding AddCommand}"
+                 WidthRequest="30" HeightRequest="30" CornerRadius="15"/>
+                <ImageButton Padding="2" Source="refresh.png" Command="{Binding UpdateCommand}"
+                 CommandParameter="{Binding Source={x:Reference ResidentsView}, Path=SelectedItem}"
+                 WidthRequest="30" HeightRequest="30" CornerRadius="15"/>
+                <ImageButton Padding="2" Source="remove.png" Command="{Binding RemoveCommand}"
+                 CommandParameter="{Binding Source={x:Reference ResidentsView}, Path=SelectedItem}"
+                 WidthRequest="30" HeightRequest="30" CornerRadius="15"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

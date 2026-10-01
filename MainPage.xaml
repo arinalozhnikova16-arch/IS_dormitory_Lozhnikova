@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Dimitrova_3_bldg_3.MainPage"
+             Title="Главная страница"
+             BackgroundColor="#001d37">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            
+            <BoxView HeightRequest="1" BackgroundColor="#001d37" Margin="5"/>
+            
+            <Label Margin="4" Text="Общежитие №2 СЗИУ РАНХиГС" FontAttributes="Bold"
+                   Style="{StaticResource Headline}" TextColor="#d7d7d7"/>
+
+            <Label Margin="4" Text="на Димитрова 3к3" FontAttributes="Bold"
+                   Style="{StaticResource Headline}"
+                   TextColor="#d7d7d7"/>
+
+            <Image Source="logo.jpg" Margin="20" WidthRequest="350"/>
+
+            <BoxView Color="#d7d7d7" HeightRequest="2" HorizontalOptions="Fill" Margin="1"/>
+            <BoxView Color="#d7d7d7" HeightRequest="2" HorizontalOptions="Fill" Margin="1"/>
+
+            <Border StrokeShape="RoundRectangle 12"
+                    StrokeThickness="0"
+                    BackgroundColor="#d7d7d7"
+                    Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Геолокация общежития"
+                           FontAttributes="Bold"
+                           TextColor="#001d37"
+                           FontSize="16"/>
+                    <Button x:Name="LocationBtn" 
+                            Text="Показать моё местоположение"
+                            Clicked="OnLocationClicked"
+                            BackgroundColor="#001d37"
+                            TextColor="#d7d7d7"
+                            CornerRadius="10"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <BoxView Color="#d7d7d7" HeightRequest="2" HorizontalOptions="Fill" Margin="1"/>
+            <BoxView Color="#d7d7d7" HeightRequest="2" HorizontalOptions="Fill" Margin="1"/>
+
+            <Label Margin="4" Text="Официальные ресурсы"
+                    Style="{StaticResource Headline}"
+                   TextColor="#d7d7d7"/>
+            <Button Margin="5" x:Name="SiteBtn" Text="Сайт СЗИУ РАНХиГС" 
+                    Clicked="SiteBtnClicked"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="#d7d7d7"
+                    TextColor="#001d37"/>
+            <Button Margin="5" x:Name="SiteUSOBtn" Text="Сайт УСО СЗИУ" 
+                    Clicked="SiteUSOBtnClicked"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="#d7d7d7"
+                    TextColor="#001d37"/>
+            <Button Margin="5" x:Name="VkBtn" Text="Группа ВКонтакте" 
+                    Clicked="VkBtnClicked"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="#d7d7d7"
+                    TextColor="#001d37"/>
+            <Button Margin="5" x:Name="TgBtn" Text="Телеграм канал" 
+                    Clicked="TgBtnClicked"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="#d7d7d7"
+                    TextColor="#001d37"/>
+
+            <BoxView Color="#d7d7d7" HeightRequest="2" HorizontalOptions="Fill" Margin="1"/>
+            <BoxView Color="#d7d7d7" HeightRequest="2" HorizontalOptions="Fill" Margin="1"/>
+
+            <Label Margin="4" Text="Контакты"
+                    Style="{StaticResource Headline}"
+                   TextColor="#d7d7d7"/>
+
+            <Border StrokeShape="RoundRectangle 12"
+                    StrokeThickness="0"
+                    BackgroundColor="#d7d7d7"
+                    Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Официальное сообщество управления студенческими общежитиями (УСО СЗИУ)"
+                           FontAttributes="Bold"
+                           TextColor="#001d37"
+                           FontSize="16"/>
+
+                    <HorizontalStackLayout Spacing="12">
+                        <Image Source="phone_icon.png" HeightRequest="20" WidthRequest="20"/>
+                        <VerticalStackLayout>
+                            <Label Text="+7 (921) 097-62-86"
+                                   TextColor="#001d37"
+                                   TextDecorations="Underline">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnPhoneCallTapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="+7 (921) 753-59-28" 
+                                   TextColor="#001d37" 
+                                   TextDecorations="Underline">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnPhoneCallTapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="12">
+                        <Image Source="email_icon.png" HeightRequest="20" WidthRequest="20"/>
+                        <Label Text="sed-sziu@ranepa.ru"
+                               TextColor="#001d37"
+                               TextDecorations="Underline">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnEmailTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 12"
+                    StrokeThickness="0"
+                    BackgroundColor="#d7d7d7"
+                    Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Отдел общежитий СЗИУ РАНХиГС"
+                           FontAttributes="Bold"
+                           TextColor="#001d37"
+                           FontSize="16"/>
+
+                    <HorizontalStackLayout Spacing="12">
+                        <Image Source="phone_icon.png" HeightRequest="20" WidthRequest="20"/>
+                        <Label Text="+7 (812) 335-94-94"
+                               TextColor="#001d37"
+                               TextDecorations="Underline">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPhoneCallTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+
+                    <Label Text="доб. 1616 или 1617"
+                           TextColor="#666666"
+                           FontSize="12"
+                           Margin="32,0,0,0"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 12"
+                    StrokeThickness="0"
+                    BackgroundColor="#d7d7d7"
+                    Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Жилищно-бытовая комиссия (ЖБК)"
+                           FontAttributes="Bold"
+                           TextColor="#001d37"
+                           FontSize="16"/>
+
+                    <HorizontalStackLayout Spacing="12">
+                        <Image Source="email_icon.png" HeightRequest="20" WidthRequest="20"/>
+                        <Label Text="zbk-spb@ranepa.ru"
+                               TextColor="#001d37"
+                               TextDecorations="Underline">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnEmailTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 12"
+                    StrokeThickness="0"
+                    BackgroundColor="#d7d7d7"
+                    Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Дежурный воспитатель"
+                           FontAttributes="Bold"
+                           TextColor="#001d37"
+                           FontSize="16"/>
+
+                    <HorizontalStackLayout Spacing="12">
+                        <Image Source="phone_icon.png" HeightRequest="20" WidthRequest="20"/>
+                        <Label Text="+7 (921) 753-59-28"
+                               TextColor="#001d37"
+                               TextDecorations="Underline">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPhoneCallTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 12"
+                    StrokeThickness="0"
+                    BackgroundColor="#d7d7d7"
+                    Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Бухгалтерия"
+                           FontAttributes="Bold"
+                           TextColor="#001d37"
+                           FontSize="16"/>
+
+                    <HorizontalStackLayout Spacing="12">
+                        <Image Source="phone_icon.png" HeightRequest="20" WidthRequest="20"/>
+                        <Label Text="335-94-62"
+                               TextColor="#001d37"
+                               TextDecorations="Underline">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPhoneCallTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <BoxView HeightRequest="1" BackgroundColor="#d7d7d7" Margin="5"/>
+
+            <Border StrokeShape="RoundRectangle 12"
+                    StrokeThickness="0"
+                    BackgroundColor="#d7d7d7"
+                    Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Связаться с разработчиком"
+                           FontAttributes="Bold"
+                           TextColor="#001d37"
+                           FontSize="16"/>
+                    <HorizontalStackLayout Spacing="12">
+                        <Image Source="phone_icon.png" HeightRequest="20" WidthRequest="20"/>
+                        <Label Text="+7 (902) 762-73-55"
+                               TextColor="#001d37"
+                               TextDecorations="Underline">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPhoneCallTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="12">
+                        <Image Source="email_icon.png" HeightRequest="20" WidthRequest="20"/>
+                        <VerticalStackLayout>
+                            <Label Text="alozhnikova-24@ranepa.ru"
+                                   TextColor="#001d37"
+                                   TextDecorations="Underline">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEmailTapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="arina.lozhnikova16@mail.ru"
+                                   TextColor="#001d37"
+                                   TextDecorations="Underline">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnEmailTapped"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <BoxView HeightRequest="1" BackgroundColor="#001d37" Margin="5"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
