@@ -22,7 +22,11 @@
 <img width="229" height="739" alt="image" src="https://github.com/user-attachments/assets/060b2424-8c6e-4051-9289-49e86ba4cb34" />
 <img width="333" height="740" alt="image" src="https://github.com/user-attachments/assets/a7578da4-6815-47fe-9080-3ad3c4b2a8fb" />
 <img width="331" height="735" alt="image" src="https://github.com/user-attachments/assets/a65ba394-894e-4078-b81a-92c445520f9d" />
+
+### Аналитика
 <img width="336" height="747" alt="image" src="https://github.com/user-attachments/assets/029ee6cc-c83b-4f08-ab16-84270cc94d3d" />
 <img width="330" height="733" alt="image" src="https://github.com/user-attachments/assets/e17ff89f-dc36-49e1-8052-96c1ba26cb26" />
+
+## Главное меню
 <img width="233" height="519" alt="image" src="https://github.com/user-attachments/assets/7d087f6a-6316-42f2-8327-6d7cb3766094" />
 <img width="173" height="520" alt="image" src="https://github.com/user-attachments/assets/e86e955f-3618-4976-91f7-a9511570e32b" />
